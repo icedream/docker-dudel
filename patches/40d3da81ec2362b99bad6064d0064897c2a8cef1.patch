@@ -1,0 +1,22 @@
+From 40d3da81ec2362b99bad6064d0064897c2a8cef1 Mon Sep 17 00:00:00 2001
+From: Carl Kittelberger <icedream@icedream.pw>
+Date: Sun, 14 Aug 2016 00:08:29 +0200
+Subject: [PATCH] Fix auto-watch bug due to missing "mac" argument
+
+---
+ dudel/views.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/dudel/views.py b/dudel/views.py
+index 5ca4d80..ad6a5d1 100644
+--- a/dudel/views.py
++++ b/dudel/views.py
+@@ -800,7 +800,7 @@ def poll_vote(slug):
+             db.session.commit()
+ 
+             if current_user.is_authenticated() and current_user.autowatch:
+-                return redirect(url_for("poll_watch", slug=poll.slug, watch="yes", next=poll.get_url()))
++                return redirect(url_for("poll_watch", slug=poll.slug, watch="yes", mac=poll.get_mac(), next=poll.get_url()))
+             else:
+                 return redirect(poll.get_url())
+ 
